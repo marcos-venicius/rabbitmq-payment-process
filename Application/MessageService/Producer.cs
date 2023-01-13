@@ -12,9 +12,9 @@ public sealed class Producer<T> : IProducer<T> where T : BaseMessageData
     private IModel? _channel;
     private ProducerQueueSettings? _producerQueueSettings;
 
-    public void Configure(ProducerConnectionSettings connectionSettings, ProducerQueueSettings producerQueueSettings)
+    public void Configure(ProducerConnectionSettings connectionSettings, ProducerQueueSettings queueSettings)
     {
-        _producerQueueSettings = producerQueueSettings;
+        _producerQueueSettings = queueSettings;
         
         var factory = new ConnectionFactory
         {
@@ -28,7 +28,7 @@ public sealed class Producer<T> : IProducer<T> where T : BaseMessageData
         _channel = _connection.CreateModel();
         
         _channel.QueueDeclare(
-            queue: producerQueueSettings.QueueName,
+            queue: queueSettings.QueueName,
             durable: true,
             exclusive: false,
             autoDelete: false,
@@ -36,16 +36,16 @@ public sealed class Producer<T> : IProducer<T> where T : BaseMessageData
         );
         
         _channel.ExchangeDeclare(
-            exchange: producerQueueSettings.ExchangeName,
+            exchange: queueSettings.ExchangeName,
             type: "direct",
             autoDelete: false,
             arguments: null
         );
         
         _channel.QueueBind(
-            queue: producerQueueSettings.QueueName,
-            exchange: producerQueueSettings.ExchangeName,
-            routingKey: producerQueueSettings.RoutingKey,
+            queue: queueSettings.QueueName,
+            exchange: queueSettings.ExchangeName,
+            routingKey: queueSettings.RoutingKey,
             arguments: null
         );
     }
