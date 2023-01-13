@@ -6,14 +6,14 @@ using var consumer = new Consumer<MessageData>();
 
 consumer.Configure(
     new ProducerConnectionSettings("localhost", "user", "password", 5672),
-    new ProducerQueueSettings("events-queue", "events-ex", "save-event")
+    new ProducerQueueSettings("logs-queue", "payments-exchange", "payment.log")
 );
 
 consumer.OnReceived += data =>
 {
     try
     {
-        Console.WriteLine($"* [{data.Id}] SAVING LOG \"{data.Message}\"");
+        Console.WriteLine($"* [{data.Id}] SAVING LOG: PAYMENT OF R$ \"{data.Price / 100.0}\" [{data.Message}]");
         Thread.Sleep(500);
         
         var random = new Random();

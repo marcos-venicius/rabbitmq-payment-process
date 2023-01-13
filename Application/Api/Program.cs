@@ -16,7 +16,7 @@ var app = builder.Build();
 
 app.ConfigureMessageService<MessageData>(
     new ProducerConnectionSettings("localhost", "user", "password", 5672),
-    new ProducerQueueSettings("events-queue", "events-ex", "save-event")
+    new ProducerQueueSettings("payments-queue", "payments-exchange", "payment.make")
 );
 
 if (app.Environment.IsDevelopment())
