@@ -42,18 +42,10 @@ public sealed class Consumer<T> : IConsumer<T> where T : BaseMessageData
             arguments: null
         );
 
-        _channel.ExchangeDeclare(
-            exchange: queueSettings.ExchangeName,
-            type: "direct",
-            autoDelete: false,
-            arguments: null
-        );
-
-        _channel.QueueBind(
-            queue: queueSettings.QueueName,
-            exchange: queueSettings.ExchangeName,
-            routingKey: queueSettings.RoutingKey,
-            arguments: null
+        _channel.BasicQos(
+            prefetchSize: 0,
+            prefetchCount: 1,
+            global: false
         );
     }
 

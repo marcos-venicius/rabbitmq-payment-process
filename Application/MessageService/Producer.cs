@@ -66,11 +66,15 @@ public sealed class Producer<T> : IProducer<T> where T : BaseMessageData
             throw new ApplicationException("MISSING_CALL_CONFIGURE_METHOD");
         
         var body = GetDataBytes(data);
+
+        var properties = _channel.CreateBasicProperties();
+
+        properties.Persistent = true;
         
         _channel.BasicPublish(
             exchange: _producerQueueSettings.ExchangeName,
             routingKey: _producerQueueSettings.RoutingKey,
-            basicProperties: null,
+            basicProperties: properties,
             body: body
         );
     }

@@ -13,22 +13,27 @@ consumer.OnReceived += data =>
 {
     try
     {
-        Console.WriteLine($"* [{data.Id}] SAVING LOG: PAYMENT OF R$ \"{data.Price / 100.0}\" [{data.Message}]");
+        Console.WriteLine($"[INFO]\t\t [{data.Id}] \t\tPAYMENT OF R$ \"{data.Price / 100.0}\" HAS {data.Message}");
+
         Thread.Sleep(500);
-        
+
         var random = new Random();
 
         var randomNumber = random.Next();
 
         if (randomNumber % 3 == 0)
             throw new Exception("SOME FAIL");
-        
-        Console.WriteLine($"+ [{data.Id}] LOG SAVED, ACK ");
+
+        Console.WriteLine($"[SUCCESS]\t [{data.Id}] ACK \t\t{DateTime.Now}");
     }
     catch
     {
-        Console.WriteLine($"! [{data.Id}] LOG SAVE FAILED, NACK ");
+        Console.WriteLine($"[FAIL]\t\t [{data.Id}] NACK \t\t{DateTime.Now}");
         throw;
+    }
+    finally
+    {
+        Console.WriteLine();
     }
 };
 

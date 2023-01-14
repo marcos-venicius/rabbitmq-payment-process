@@ -18,6 +18,6 @@ public class PaymentsController : ControllerBase
     [HttpPost]
     public void MakePayment(PaymentsCreateDto dto)
     {
-        _makePaymentProducer.Publish(new MessageData(dto.Price, "MAKE PAYMENT"));
+        _makePaymentProducer.Publish(new MessageData(Guid.NewGuid(), dto.Price, "MAKE PAYMENT"));
     }
 }
