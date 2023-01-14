@@ -37,3 +37,9 @@ docker compose up -d
     cd ./Application/Logger
     dotnet run
     ```
+
+    or
+    ```bash
+    cd ./Application/Logger
+    dotnet run | tee ../../payments.log
+    ```
