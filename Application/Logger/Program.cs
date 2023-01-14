@@ -24,11 +24,11 @@ consumer.OnReceived += data =>
         if (randomNumber % 3 == 0)
             throw new Exception("SOME FAIL");
 
-        Console.WriteLine($"[SUCCESS]\t [{data.Id}] ACK \t\t{DateTime.Now}");
+        Console.WriteLine($"[SUCCESS]\t [{data.Id}] ACK \t{DateTime.Now}");
     }
     catch
     {
-        Console.WriteLine($"[FAIL]\t\t [{data.Id}] NACK \t\t{DateTime.Now}");
+        Console.WriteLine($"[FAIL]\t\t [{data.Id}] NACK \t{DateTime.Now}");
         throw;
     }
     finally
@@ -39,5 +39,4 @@ consumer.OnReceived += data =>
 
 consumer.StartListen();
 
-Console.WriteLine("press [enter] to quit");
 Console.ReadKey();
