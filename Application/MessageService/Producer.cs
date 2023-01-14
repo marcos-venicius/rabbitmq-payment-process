@@ -37,7 +37,7 @@ public sealed class Producer<T> : IProducer<T> where T : BaseMessageData
         
         _channel.ExchangeDeclare(
             exchange: queueSettings.ExchangeName,
-            type: "direct",
+            type: ExchangeType.Direct,
             autoDelete: false,
             arguments: null
         );
